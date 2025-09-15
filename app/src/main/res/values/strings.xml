@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Play Juegos</string>
+    <string name="boton1">Play</string>
+    <string name="boton2">New Player</string>
+    <string name="boton3">Preference</string>
+    <string name="boton4">About</string>
+
+</resources>
