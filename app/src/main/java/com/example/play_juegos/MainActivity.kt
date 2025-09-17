@@ -29,6 +29,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,16 +41,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             Play_JuegosTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    when(LocalConfiguration.current.orientation) {
-                        ORIENTATION_LANDSCAPE -> PortadaLandscape(
-                            modifier = Modifier.padding(innerPadding)
-                        )
-
-                        else ->  Portada(
-                            name = "Android",
-                            modifier = Modifier.padding(innerPadding)
-                        )
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = "Portada"){
+                        composable("Portada"){ElegirPortada(Modifier.padding(innerPadding),navController)}
+                        composable("NewPlayer"){InterfaceNewPlayer()}
                     }
+
                 }
             }
         }
@@ -54,7 +54,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Portada(name: String, modifier: Modifier = Modifier) {
+fun ElegirPortada(modifier: Modifier, navController : NavController){
+    when(LocalConfiguration.current.orientation) {
+        ORIENTATION_LANDSCAPE -> PortadaLandscape(
+            modifier = modifier)
+
+
+        else ->  Portada(
+            modifier = modifier,
+            navController=navController
+
+        )
+    }
+}
+
+@Composable
+fun Portada(modifier: Modifier = Modifier, navController: NavController) {
     Column (
         Modifier.fillMaxSize()
             .background(MaterialTheme.colorScheme.primary),
@@ -75,7 +90,7 @@ fun Portada(name: String, modifier: Modifier = Modifier) {
                 .size(30.dp)
         )
         FilledButton(stringResource(R.string.boton1))
-        FilledButton(stringResource(R.string.boton2))
+        FilledActionableButton(stringResource(R.string.boton2),navController,"NewPlayer")
         FilledButton(stringResource(R.string.boton3))
         FilledButton(stringResource(R.string.boton4))
 
@@ -127,12 +142,15 @@ fun FilledButton(texto: String) {
 
     }
 }
-
-
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    Play_JuegosTheme {
-        Portada("Android")
+fun FilledActionableButton(texto: String, navController: NavController, ruta:String) {
+    Button(onClick = {navController.navigate(ruta)},
+        modifier = Modifier
+            .size(300.dp,80.dp)
+            .padding(10.dp),
+        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary )
+    ) {
+        Text(texto)
+
     }
 }
