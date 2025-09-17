@@ -1,5 +1,6 @@
 package com.example.play_juegos
 
+import android.content.res.Configuration.ORIENTATION_LANDSCAPE
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
@@ -8,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -25,6 +27,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.core.content.ContextCompat
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,10 +37,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             Play_JuegosTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Portada(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    when(LocalConfiguration.current.orientation) {
+                        ORIENTATION_LANDSCAPE -> PortadaLandscape(
+                            modifier = Modifier.padding(innerPadding)
+                        )
+
+                        else ->  Portada(
+                            name = "Android",
+                            modifier = Modifier.padding(innerPadding)
+                        )
+                    }
                 }
             }
         }
@@ -62,7 +72,7 @@ fun Portada(name: String, modifier: Modifier = Modifier) {
         )
         Spacer(
             modifier = modifier
-                .size(60.dp)
+                .size(30.dp)
         )
         FilledButton(stringResource(R.string.boton1))
         FilledButton(stringResource(R.string.boton2))
@@ -71,6 +81,40 @@ fun Portada(name: String, modifier: Modifier = Modifier) {
 
     }
 }
+
+@Composable
+fun PortadaLandscape(modifier: Modifier) {
+
+        Column(
+            Modifier.fillMaxSize()
+                .background(MaterialTheme.colorScheme.primary),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            Spacer(
+                modifier = modifier
+                    .size(25.dp)
+            )
+            Text(
+                text = stringResource(R.string.app_name),
+                style = MaterialTheme.typography.titleLarge
+
+            )
+            Spacer(
+                modifier = modifier
+                    .size(10.dp)
+            )
+            Row {
+                FilledButton(stringResource(R.string.boton1))
+                FilledButton(stringResource(R.string.boton2))
+            }
+            Row {
+                FilledButton(stringResource(R.string.boton3))
+                FilledButton(stringResource(R.string.boton4))
+            }
+
+        }
+    }
 @Composable
 fun FilledButton(texto: String) {
     Button(onClick = {},
