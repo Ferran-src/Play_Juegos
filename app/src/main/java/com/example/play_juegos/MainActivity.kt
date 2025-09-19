@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "Portada"){
                         composable("Portada"){ElegirPortada(Modifier.padding(innerPadding),navController)}
-                        composable("NewPlayer"){InterfaceNewPlayer()}
+                        composable("NewPlayer"){InterfaceNewPlayer(Modifier.padding(innerPadding))}
                     }
 
                 }
