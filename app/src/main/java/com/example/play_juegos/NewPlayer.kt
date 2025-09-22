@@ -1,23 +1,23 @@
-package com.example.play_juegos
+ package com.example.play_juegos
 
-import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun InterfaceNewPlayer(modifier: Modifier){
-
+    val rowAligment = 64.dp
     var nombreTextField by rememberSaveable { mutableStateOf(" ") }
     var apellidoTextField by rememberSaveable { mutableStateOf(" ") }
     var nickNameTextField by rememberSaveable { mutableStateOf(" ") }
@@ -39,7 +39,7 @@ fun InterfaceNewPlayer(modifier: Modifier){
     Column(
         modifier.fillMaxSize()
             .background(MaterialTheme.colorScheme.primary),
-        //horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally
     ){
         Row() {
             Image(
@@ -50,19 +50,98 @@ fun InterfaceNewPlayer(modifier: Modifier){
 
             )
 
-            TextField(
-                modifier= modifier,
-                value = nombreTextField,
-                onValueChange = {nombreTextField = it},
-                label = {Text(text ="Nombre",
-                    color = Color.Black
-                )},
-                shape = RoundedCornerShape(16.dp)
-            )
+            CreateTextField(nombreTextField,
+                stringResource(R.string.NewPlayerTextFieldName),
+                modifier,
+                onValueChange ={nombreTextField = it})
         }
-        Row() {  }
-        Row() {  }
-        Row() {  }
+        Row {
+            Spacer(modifier = modifier.size(rowAligment,0.dp))
+            CreateTextField(
+                apellidoTextField,
+                stringResource(R.string.NewPlayerTextFieldLastName),
+                modifier,
+                onValueChange = { apellidoTextField = it })
+        }
+        Row {
+            Spacer(modifier = modifier.size(rowAligment,0.dp))
+
+            CreateTextField(
+                nickNameTextField,
+                stringResource(R.string.NewPlayerTextFieldNickName),
+                modifier,
+                onValueChange = { nickNameTextField = it })
+        }
+
+
+        Row() {
+            Spacer(modifier = modifier.size(rowAligment,0.dp))
+
+            Image(
+                modifier = modifier.size(80.dp)
+                    .size(200.dp,40.dp),
+                painter = painterResource(R.drawable.android),
+                contentDescription = stringResource(R.string.imagen1)
+
+            )
+            Button(onClick = {},
+                modifier = Modifier
+                    .size(180.dp,100.dp)
+                    .padding(20.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary )
+            ) {
+                Text(stringResource(R.string.NewPlayerButtonChange))
+            }
+        }
+        Row() {
+            Image(
+                modifier = modifier.size(64.dp)
+                    .size(200.dp,40.dp),
+                painter = painterResource(R.drawable.phone),
+                contentDescription = stringResource(R.string.imagen1)
+
+            )
+
+            CreateTextField(phoneTextField,
+                stringResource(R.string.NewPlayerTextFieldPhone),
+                modifier,
+                onValueChange ={phoneTextField = it})
+
+        }
+        Row() {
+            Image(
+                modifier = modifier.size(64.dp)
+                    .size(200.dp,40.dp),
+                painter = painterResource(R.drawable.gmail),
+                contentDescription = stringResource(R.string.imagen1)
+
+            )
+
+            CreateTextField(mailTextField,
+                stringResource(R.string.NewPlayerTextFieldPhone),
+                modifier,
+                onValueChange ={mailTextField = it})
+
+        }
 
     }
+}
+ @Composable
+fun CreateTextField(variable: String, texto: String,
+                    modifier: Modifier,
+                    onValueChange: (String) -> Unit){
+
+    TextField(
+        modifier= modifier.padding(vertical = 2.dp),
+        value = variable,
+        onValueChange = onValueChange,
+        label = {Text(text =texto,
+            color = Color.Black
+        )},
+        shape = RoundedCornerShape(16.dp),
+        colors = TextFieldDefaults.colors(
+            unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
+            focusedContainerColor = MaterialTheme.colorScheme.secondary,
+            unfocusedIndicatorColor = Color.Transparent)
+    )
 }

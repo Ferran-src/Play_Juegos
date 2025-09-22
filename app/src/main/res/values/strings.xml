@@ -5,5 +5,10 @@
     <string name="boton3">Preference</string>
     <string name="boton4">About</string>
     <string name="imagen1">Persona</string>
-
+    <string name="NewPlayerTextFieldName">Nombre</string>
+    <string name="NewPlayerTextFieldLastName">Apellido</string>
+    <string name="NewPlayerTextFieldNickName">Nickname</string>
+    <string name="NewPlayerTextFieldPhone">Telefono</string>
+    <string name="NewPlayerTextFieldMail">Mail</string>
+    <string name="NewPlayerButtonChange">Change</string>
 </resources>
