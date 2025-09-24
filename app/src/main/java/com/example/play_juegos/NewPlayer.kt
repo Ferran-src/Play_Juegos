@@ -38,7 +38,7 @@ fun InterfaceNewPlayer(modifier: Modifier){
 
     Column(
         modifier.fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary),
+            .background(MaterialTheme.colorScheme.primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Row() {
@@ -138,10 +138,16 @@ fun CreateTextField(variable: String, texto: String,
         label = {Text(text =texto,
             color = Color.Black
         )},
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(
+            topStart = 16.dp,
+            topEnd = 16.dp,
+            bottomStart = 0.dp,
+            bottomEnd = 0.dp
+        ),
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
             focusedContainerColor = MaterialTheme.colorScheme.secondary,
+            focusedIndicatorColor = MaterialTheme.colorScheme.tertiary,
             unfocusedIndicatorColor = Color.Transparent)
     )
 }

@@ -57,7 +57,9 @@ class MainActivity : ComponentActivity() {
 fun ElegirPortada(modifier: Modifier, navController : NavController){
     when(LocalConfiguration.current.orientation) {
         ORIENTATION_LANDSCAPE -> PortadaLandscape(
-            modifier = modifier)
+            modifier = modifier,
+            navController = navController
+        )
 
 
         else ->  Portada(
@@ -72,7 +74,7 @@ fun ElegirPortada(modifier: Modifier, navController : NavController){
 fun Portada(modifier: Modifier = Modifier, navController: NavController) {
     Column (
         Modifier.fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary),
+            .background(MaterialTheme.colorScheme.primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally
     ){
 
@@ -98,11 +100,11 @@ fun Portada(modifier: Modifier = Modifier, navController: NavController) {
 }
 
 @Composable
-fun PortadaLandscape(modifier: Modifier) {
+fun PortadaLandscape(modifier: Modifier, navController: NavController) {
 
         Column(
             Modifier.fillMaxSize()
-                .background(MaterialTheme.colorScheme.primary),
+                .background(MaterialTheme.colorScheme.primaryContainer),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -121,7 +123,7 @@ fun PortadaLandscape(modifier: Modifier) {
             )
             Row {
                 FilledButton(stringResource(R.string.boton1))
-                FilledButton(stringResource(R.string.boton2))
+                FilledActionableButton(stringResource(R.string.boton2),navController,"NewPlayer")
             }
             Row {
                 FilledButton(stringResource(R.string.boton3))
@@ -136,7 +138,7 @@ fun FilledButton(texto: String) {
         modifier = Modifier
             .size(300.dp,80.dp)
             .padding(10.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary )
+        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary )
             ) {
         Text(texto)
 
@@ -148,7 +150,7 @@ fun FilledActionableButton(texto: String, navController: NavController, ruta:Str
         modifier = Modifier
             .size(300.dp,80.dp)
             .padding(10.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary )
+        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary )
     ) {
         Text(texto)
 
