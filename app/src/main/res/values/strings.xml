@@ -11,4 +11,11 @@
     <string name="NewPlayerTextFieldPhone">Telefono</string>
     <string name="NewPlayerTextFieldMail">Mail</string>
     <string name="NewPlayerButtonChange">Change</string>
+    <string name="Persona4RadioButton">Persona 4</string>
+    <string name="Persona5RoyalRadioButton">Persona 5 Royal</string>
+    <string name="MetaphorReFantazioRadioButton">Metaphor: ReFantazio</string>
+    <string name="ShinMegamiTenseiVengeanceRadioButton">Shin Megami Tensei V: Vengeance</string>
+    <string name="Persona3ReloadRadioButton">Persona 3 Reload</string>
+    <string name="EtrianOdysseyNexusRadioButton">Etrian Odyssey Nexus</string>
+    <string name="SoulHackers2RadioButton">Soul Hackers 2</string>
 </resources>

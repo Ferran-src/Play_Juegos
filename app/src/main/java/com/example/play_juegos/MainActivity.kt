@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(navController = navController, startDestination = "Portada"){
                         composable("Portada"){ElegirPortada(Modifier.padding(innerPadding),navController)}
                         composable("NewPlayer"){InterfaceNewPlayer(Modifier.padding(innerPadding))}
+                        composable("Preference"){Interfacepreference(Modifier.padding(innerPadding))}
                     }
 
                 }
@@ -93,7 +94,7 @@ fun Portada(modifier: Modifier = Modifier, navController: NavController) {
         )
         FilledButton(stringResource(R.string.boton1))
         FilledActionableButton(stringResource(R.string.boton2),navController,"NewPlayer")
-        FilledButton(stringResource(R.string.boton3))
+        FilledActionableButton(stringResource(R.string.boton3),navController,"Preference")
         FilledButton(stringResource(R.string.boton4))
 
     }
