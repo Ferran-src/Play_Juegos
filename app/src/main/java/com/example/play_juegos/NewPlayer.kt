@@ -123,7 +123,7 @@ fun InterfaceNewPlayer(modifier: Modifier){
                     .padding(20.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary )
             ) {
-                Text(stringResource(R.string.NewPlayerButtonChange))
+                Text(stringResource(R.string.Change))
             }
         }
         Row() {
@@ -158,7 +158,17 @@ fun InterfaceNewPlayer(modifier: Modifier){
                 onValueChange ={mailTextField = it})
 
         }
-
+        Button(onClick = {
+            campoNombre = nombreTextField.isBlank()
+            campoNickname = nickNameTextField.isBlank()
+        },
+            modifier = Modifier
+                .size(180.dp, 100.dp)
+                .padding(20.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiary )
+        ) {
+            Text(stringResource(R.string.NewPlayerButtonChange))
+        }
     }
 }
  @Composable

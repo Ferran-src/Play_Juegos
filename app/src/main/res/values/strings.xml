@@ -10,7 +10,8 @@
     <string name="NewPlayerTextFieldNickName">Nickname</string>
     <string name="NewPlayerTextFieldPhone">Telefono</string>
     <string name="NewPlayerTextFieldMail">Mail</string>
-    <string name="NewPlayerButtonChange">Change</string>
+    <string name="NewPlayerButtonChange">New Player</string>
+    <string name="Change">Change</string>
     <string name="Persona4RadioButton">Persona 4</string>
     <string name="Persona5RoyalRadioButton">Persona 5 Royal</string>
     <string name="MetaphorReFantazioRadioButton">Metaphor: ReFantazio</string>
