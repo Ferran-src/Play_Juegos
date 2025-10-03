@@ -22,6 +22,7 @@ import androidx.compose.material3.FilterChip
 
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
@@ -31,18 +32,19 @@ import androidx.compose.material3.Text
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import kotlin.math.ceil
+import kotlin.math.floor
 
 @Composable
 fun Interfacepreference(modifier: Modifier) {
@@ -64,6 +66,8 @@ fun Interfacepreference(modifier: Modifier) {
     var plataformaSeleccionada by rememberSaveable { mutableStateOf("") }
     var estadoRadio by rememberSaveable { mutableStateOf("") }
     var selection by rememberSaveable { mutableStateOf(5f) }
+    var rating by rememberSaveable { mutableStateOf(2.5f) }
+
     val context = LocalContext.current
 
 
@@ -134,6 +138,7 @@ fun Interfacepreference(modifier: Modifier) {
                      )
                  }
              }
+             RatingBar(rating = rating, onRatingChanged = {newrating -> rating = newrating})
         }
             FloatingActionButton(
                 onClick = { Toast.makeText(context,
@@ -163,4 +168,52 @@ fun CreateRadioButton(opcion: String, estadoRadio: String, onValueChange: (Strin
         enabled = true,
         colors = RadioButtonDefaults.colors(selectedColor = MaterialTheme.colorScheme.tertiary )
     )
+}
+
+@Composable
+fun RatingBar(
+    modifier: Modifier = Modifier,
+    rating: Float = 0.0f,
+    stars: Int = 10,
+    starsColor: Color = Color.Yellow,
+    onRatingChanged: (Float) ->Unit
+) {
+    val filledStars = floor(rating).toInt()
+    val unfilledStars = (stars - ceil(rating)).toInt()
+    Row(modifier = modifier) {
+        repeat(filledStars) {
+            IconButton(onClick = {onRatingChanged(stars.toFloat())}){
+                Icon(
+                    painter = painterResource(R.drawable.star),
+                    contentDescription = null,
+                    tint = starsColor
+                )
+            }}
+
+        repeat(unfilledStars) {
+            IconButton(onClick = {onRatingChanged(stars.toFloat())}){
+                Icon(
+                    painter = painterResource(R.drawable.star_outline),
+                    contentDescription = null,
+                    tint = starsColor
+                )
+            }
+        }
+    }
+}
+@Composable
+fun RatingBar2(
+    rating: Float,
+    maxRating: Int = 5,
+    onRatingChanged: (Float) -> Unit
+) {
+    Row {
+        for (i in 1..maxRating) {
+            IconButton(onClick = { onRatingChanged(i.toFloat()) }) {
+                Icon(
+                painter = if (i <= rating) n
+                )
+            }
+        }
+    }
 }
