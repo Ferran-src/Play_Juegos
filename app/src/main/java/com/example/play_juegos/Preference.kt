@@ -28,10 +28,12 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderDefaults
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.material3.Text
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -43,8 +45,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import kotlin.math.ceil
-import kotlin.math.floor
 
 @Composable
 fun Interfacepreference(modifier: Modifier) {
@@ -65,8 +65,7 @@ fun Interfacepreference(modifier: Modifier) {
     )
     var plataformaSeleccionada by rememberSaveable { mutableStateOf("") }
     var estadoRadio by rememberSaveable { mutableStateOf("") }
-    var selection by rememberSaveable { mutableStateOf(5f) }
-    var rating by rememberSaveable { mutableStateOf(2.5f) }
+    var selection by rememberSaveable { mutableFloatStateOf(5f) }
 
     val context = LocalContext.current
 
@@ -102,6 +101,7 @@ fun Interfacepreference(modifier: Modifier) {
 
             val range = 0f..10f
             Slider(
+
                 value = selection,
                 valueRange = range,
                 onValueChange = { selection = it},
@@ -138,25 +138,57 @@ fun Interfacepreference(modifier: Modifier) {
                      )
                  }
              }
-             RatingBar(rating = rating, onRatingChanged = {newrating -> rating = newrating})
+             RatingBar(rating = selection.toInt()/2, onRatingChanged = {newrating -> selection = newrating.toFloat()*2})
         }
+        Column(
+            modifier = Modifier.align(Alignment.BottomEnd)
+                .padding(15.dp)
+
+        ) {
+            SmallFloatingActionButton(
+                onClick = {
+                    Toast.makeText(
+                        context,
+                        if (estadoRadio == "") {
+                            "No se ha marcado ningun juego"
+                        } else {
+                            "Se ha marcado $estadoRadio con una puntuacion de ${(selection/2).toInt()} estrellas"
+                        },
+                        Toast.LENGTH_LONG
+                    ).show()
+                },
+                shape = CircleShape,
+                containerColor = MaterialTheme.colorScheme.secondary,
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.star),
+                    contentDescription = null
+                )
+            }
+
             FloatingActionButton(
-                onClick = { Toast.makeText(context,
-                    if(estadoRadio.equals("")){"No se ha marcado nada"}
-                    else {"Se ha marcado $estadoRadio con una puntuacion de $selection"},
-                    Toast.LENGTH_LONG).show()},
+                onClick = {
+                    Toast.makeText(
+                        context,
+                        if (estadoRadio == "") {
+                            "No se ha marcado nada"
+                        } else {
+                            "Se ha marcado $estadoRadio con una puntuacion de $selection"
+                        },
+                        Toast.LENGTH_LONG
+                    ).show()
+                },
 
                 shape = CircleShape,
                 containerColor = MaterialTheme.colorScheme.tertiary,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
-                modifier = Modifier.align(Alignment.BottomEnd)
-                    .padding(10.dp)
-            ){
-              Icon(
-                  painter = painterResource(id = R.drawable.check),
-                  contentDescription = "add"
-              )
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.check),
+                    contentDescription = "add"
+                )
             }
+        }
 
     }
 }
@@ -172,15 +204,16 @@ fun CreateRadioButton(opcion: String, estadoRadio: String, onValueChange: (Strin
 
 @Composable
 fun RatingBar(
-    rating: Float,
-    maxRating: Int = 10,
-    onRatingChanged: (Float) -> Unit
+    rating: Int,
+    maxRating: Int = 5,
+    onRatingChanged: (Int) -> Unit
 ) {
     Row {
+
         for (i in 1..maxRating) {
-            IconButton(onClick = { onRatingChanged(i.toFloat()) }) {
+            IconButton(onClick = { onRatingChanged(i) }) {
                 Icon(
-                painter =  painterResource(if (i <= rating)R.drawable.star else R.drawable.star),
+                painter =  painterResource(if (i <= rating)R.drawable.star else R.drawable.star_outline),
                     contentDescription = null,
                     tint = Color.Yellow
                 )
