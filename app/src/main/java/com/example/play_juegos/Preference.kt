@@ -172,46 +172,17 @@ fun CreateRadioButton(opcion: String, estadoRadio: String, onValueChange: (Strin
 
 @Composable
 fun RatingBar(
-    modifier: Modifier = Modifier,
-    rating: Float = 0.0f,
-    stars: Int = 10,
-    starsColor: Color = Color.Yellow,
-    onRatingChanged: (Float) ->Unit
-) {
-    val filledStars = floor(rating).toInt()
-    val unfilledStars = (stars - ceil(rating)).toInt()
-    Row(modifier = modifier) {
-        repeat(filledStars) {
-            IconButton(onClick = {onRatingChanged(stars.toFloat())}){
-                Icon(
-                    painter = painterResource(R.drawable.star),
-                    contentDescription = null,
-                    tint = starsColor
-                )
-            }}
-
-        repeat(unfilledStars) {
-            IconButton(onClick = {onRatingChanged(stars.toFloat())}){
-                Icon(
-                    painter = painterResource(R.drawable.star_outline),
-                    contentDescription = null,
-                    tint = starsColor
-                )
-            }
-        }
-    }
-}
-@Composable
-fun RatingBar2(
     rating: Float,
-    maxRating: Int = 5,
+    maxRating: Int = 10,
     onRatingChanged: (Float) -> Unit
 ) {
     Row {
         for (i in 1..maxRating) {
             IconButton(onClick = { onRatingChanged(i.toFloat()) }) {
                 Icon(
-                painter = if (i <= rating) n
+                painter =  painterResource(if (i <= rating)R.drawable.star else R.drawable.star),
+                    contentDescription = null,
+                    tint = Color.Yellow
                 )
             }
         }
