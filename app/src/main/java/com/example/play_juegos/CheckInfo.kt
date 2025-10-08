@@ -1,3 +1,6 @@
 package com.example.play_juegos
-data class CheckInfo(var title:String, var selected:Boolean, var
+
+import androidx.compose.ui.graphics.painter.Painter
+
+data class CheckInfo(var title:String, var image: Painter, var selected:Boolean, var
 onCheckedChange:(Boolean)->Unit)
