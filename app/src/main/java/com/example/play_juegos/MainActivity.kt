@@ -42,11 +42,12 @@ class MainActivity : ComponentActivity() {
             Play_JuegosTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "Portada"){
+                    NavHost(navController = navController, startDestination = "splash"){
                         composable("Portada"){ElegirPortada(Modifier.padding(innerPadding),navController)}
                         composable("NewPlayer"){InterfaceNewPlayer(Modifier.padding(innerPadding))}
                         composable("Preference"){Interfacepreference(Modifier.padding(innerPadding))}
                         composable("Game"){InterfaceGame(Modifier.padding(innerPadding))}
+                        composable("splash") { SplashScreen ({ navController.navigate("Portada") }) }
 
                     }
 
@@ -125,7 +126,7 @@ fun PortadaLandscape(modifier: Modifier, navController: NavController) {
                     .size(10.dp)
             )
             Row {
-                FilledButton(stringResource(R.string.boton1))
+                FilledActionableButton(stringResource(R.string.boton1),navController,"Game")
                 FilledActionableButton(stringResource(R.string.boton2),navController,"NewPlayer")
             }
             Row {

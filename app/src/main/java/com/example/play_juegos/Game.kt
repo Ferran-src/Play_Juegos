@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
@@ -59,8 +60,12 @@ fun InterfaceGame(modifier: Modifier) {
 
 
     val checkBoxes = getOptions(checkBoxValues,checkBoxImages)
-    Box(modifier = modifier.background(MaterialTheme.colorScheme.primaryContainer)
-        .fillMaxSize()) {
+    Box(
+        modifier = modifier
+            .background(MaterialTheme.colorScheme.primaryContainer)
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier.padding(top = 15.dp)
