@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
                     NavHost(navController = navController, startDestination = "splash"){
                         composable("Portada"){ElegirPortada(Modifier.padding(innerPadding),navController)}
-                        composable("NewPlayer"){InterfaceNewPlayer(Modifier.padding(innerPadding))}
+                        composable("NewPlayer"){InterfaceNewPlayer()}
                         composable("Preference"){Interfacepreference(Modifier.padding(innerPadding))}
                         composable("Game"){InterfaceGame(Modifier.padding(innerPadding))}
                         composable("splash") { SplashScreen ({ navController.navigate("Portada") }) }

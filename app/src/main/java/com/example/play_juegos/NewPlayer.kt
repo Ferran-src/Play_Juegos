@@ -2,6 +2,7 @@
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,7 +42,7 @@ fun InterfaceNewPlayer(){
     var campoNickname by remember {  mutableStateOf(false)}
 
     var expanded by remember { mutableStateOf(false) }
-    val series = listOf("Naruto", "The witcher", "The expanse", "The walking dead", "Stranger Things")
+    val series = listOf("Sahw@gmail.com", "Hegale@gmail.com", "Garana@gmail.com")
 
     var nombreTextField by rememberSaveable { mutableStateOf(" ") }
     var apellidoTextField by rememberSaveable { mutableStateOf(" ") }
@@ -155,12 +156,19 @@ fun InterfaceNewPlayer(){
 
             )
 
-            CreateTextField(mailTextField,
+            CreateMenuTextField(mailTextField,
                 stringResource(R.string.NewPlayerTextFieldPhone),
                 modifier,
-                onValueChange ={mailTextField = it})
+                onValueChange ={mailTextField = it},
+                expanded,
+                onExpandedChange = {expanded = it},
+                series,
+                onClickExpandedChange = {mailTextField = it; expanded = false},
+                expandedtrue = {expanded = it})
 
         }
+
+
         Button(onClick = {
             campoNombre = nombreTextField.isBlank()
             campoNickname = nickNameTextField.isBlank()
@@ -200,16 +208,20 @@ fun CreateTextField(variable: String, texto: String,
     )
 }
 @Composable
-fun CreateMenuTextField(variable: String, texto: String,
-                     modifier: Modifier,
-                     onValueChange: (String) -> Unit,
-                        expanded: Boolean,
-                        onExpandedChange: (Boolean)-> Unit,
-                        series: List<String>,
-                        onClickExpandedChange: (String, Boolean) -> Unit){
+fun CreateMenuTextField(
+    variable: String,
+    texto: String,
+    modifier: Modifier,
+    onValueChange: (String) -> Unit,
+    expanded: Boolean,
+    onExpandedChange: (Boolean) -> Unit,
+    series: List<String>,
+    onClickExpandedChange: (String) -> Unit,
+    expandedtrue: (Boolean) -> Unit
+){
      Column {
          TextField(
-             modifier = modifier.padding(vertical = 2.dp),
+             modifier = modifier.padding(vertical = 2.dp).clickable{expandedtrue(true)},
              enabled = false,
              value = variable,
              onValueChange = onValueChange,
@@ -229,25 +241,30 @@ fun CreateMenuTextField(variable: String, texto: String,
                  unfocusedContainerColor = MaterialTheme.colorScheme.secondary,
                  focusedContainerColor = MaterialTheme.colorScheme.secondary,
                  focusedIndicatorColor = MaterialTheme.colorScheme.tertiary,
-                 unfocusedIndicatorColor = Color.Transparent
-             )
+                 unfocusedIndicatorColor = Color.Transparent,
+                 disabledContainerColor  = MaterialTheme.colorScheme.secondary,
+
+                 )
          )
          DropdownMenu(
              expanded = expanded,
-             onDismissRequest = { onExpandedChange /*expanded = false*/ },
+             onDismissRequest = { onExpandedChange(false) /*expanded = false*/ },
              modifier = Modifier.fillMaxWidth()
+                 .background(color = MaterialTheme.colorScheme.secondary)
          ) {
              series.forEach { serie ->
                  DropdownMenuItem(
-                     text = {Text(text = serie)},
+                     text = {Text(text = serie,
+                         style = MaterialTheme.typography.bodyLarge)},
                              onClick = {
-                         onClickExpandedChange
+                         onClickExpandedChange(serie)
                          /*
                              expanded = false
                              variable = serie
 
                           */
                          }
+
                  )
              }
          }
