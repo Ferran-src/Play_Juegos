@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
                         composable("Preference"){Interfacepreference(Modifier.padding(innerPadding))}
                         composable("Game"){InterfaceGame(Modifier.padding(innerPadding))}
                         composable("splash") { SplashScreen ({ navController.navigate("Portada") }) }
-
+                        composable("About"){InterfaceAbout(Modifier.padding(innerPadding))}
                     }
 
                 }
@@ -98,7 +98,7 @@ fun Portada(modifier: Modifier = Modifier, navController: NavController) {
         FilledActionableButton(stringResource(R.string.boton1),navController,"Game")
         FilledActionableButton(stringResource(R.string.boton2),navController,"NewPlayer")
         FilledActionableButton(stringResource(R.string.boton3),navController,"Preference")
-        FilledButton(stringResource(R.string.boton4))
+        FilledActionableButton(stringResource(R.string.boton4),navController,"About")
 
     }
 }
