@@ -1,6 +1,9 @@
 package com.example.play_juegos
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,7 +26,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun InterfaceAbout(modifier: Modifier){
-    val context = LocalContext
+    val context = LocalContext.current
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
@@ -31,7 +34,8 @@ fun InterfaceAbout(modifier: Modifier){
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(getPeople()) { individual ->
-            ItemIndividual(individual)
+            ItemIndividual(individual, context)
+
         }
         //TODO usar HorizontalDivider para separar
     }
@@ -48,12 +52,35 @@ fun getPeople(): List<Individual>{
             "Lana",
             989,
             R.drawable.caballeropantuflas
+        ),
+        Individual(
+            "Jose",
+            666,
+            R.drawable.android
+        ),
+        Individual(
+            "Alberto",
+            536,
+            R.drawable.android
+        ),
+        Individual(
+            "Luis",
+            234,
+            R.drawable.android
+        ),
+        Individual(
+            "Miguel",
+            1,
+            R.drawable.android
         )
     )
 }
 @Composable
-fun ItemIndividual(individual: Individual){
-    Row(verticalAlignment = Alignment.CenterVertically) {
+fun ItemIndividual(individual: Individual, context: Context){
+    Row(verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.clickable(true){
+            Toast.makeText(context,"Usuario: ${individual.name}, Puntuacion: ${individual.points}",Toast.LENGTH_LONG).show()
+        }) {
         Image(
             painter = painterResource(individual.icon ),
             contentDescription = null,
